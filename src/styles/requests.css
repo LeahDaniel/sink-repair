@@ -1,0 +1,64 @@
+.requestList, .completionList {
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin: 0;
+}
+
+.requestList li {
+    padding:10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.requestList li:nth-child(2n){
+    background-color:lightgray
+}
+
+.requestList li:nth-child(2n+1){
+    background-color:white
+}
+
+.requestList li div {
+    width: 60%;
+}
+
+.requestList li select {
+    margin-left: 24px
+}
+
+.requestList li button {
+    margin-left: 20%
+}
+
+
+.completionList li {
+    background-color: rgb(230, 171, 171);
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.completionList li div {
+    width: 80%
+}
+
+.completionList li button {
+    margin-left: 102px
+}
+
+.tabletitles {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: darkgray;
+    margin-bottom: 0;
+    height: 47px;
+}
+
+#tabletitle-1 {
+    margin-left: 10px;
+}
+
+#tabletitle-2 {
+    margin-left: 50%;
+}
