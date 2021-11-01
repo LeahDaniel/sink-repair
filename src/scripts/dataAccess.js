@@ -1,62 +1,11 @@
 const mainContainer = document.querySelector("#container")
+const API = "http://localhost:8088"
 
 const applicationState = {
     requests: [],
     completions: [],
-    plumbers: [
-        {
-            "id": 1,
-            "name": "Maude"
-        },
-        {
-            "id": 2,
-            "name": "Merle"
-        }
-    ],
+    plumbers: [],
 }
-
-const API = "http://localhost:8088"
-
-export const fetchData = () => {
-    fetch(`${API}/requests`)
-        .then(response => response.json())
-        .then(
-            (serviceRequests) => {
-                // Store the external state in application state
-                applicationState.requests = serviceRequests
-            }
-        )
-    return fetch(`${API}/completions`)
-    .then(response => response.json())
-    .then(
-        (serviceRequests) => {
-            // Store the external state in application state
-            applicationState.completions = serviceRequests
-        }
-    )
-}
-
-// export const fetchPlumbers = () => {
-//     return fetch(`${API}/plumbers`)
-//         .then(response => response.json())
-//         .then(
-//             (plumbersAPI) => {
-//                 // Store the external state in application state
-//                 applicationState.plumbers = plumbersAPI
-//             }
-//         )
-// }
-
-// export const fetchCompletions = () => {
-//     return fetch(`${API}/completions`)
-//         .then(response => response.json())
-//         .then(
-//             (serviceCompletions) => {
-//                 // Store the external state in application state
-//                 applicationState.completions = serviceCompletions
-//             }
-//         )
-// }
 
 export const getRequests = () => {
     return applicationState.requests.map(request => ({ ...request }))
@@ -67,7 +16,35 @@ export const getPlumbers = () => {
 }
 
 export const getCompletions = () => {
-    return applicationState.completions.map(plumber => ({ ...plumber }))
+    return applicationState.completions.map(job => ({ ...job }))
+}
+
+
+export const fetchData = () => {
+    fetch(`${API}/requests`)
+        .then(response => response.json())
+        .then(
+            (serviceRequests) => {
+                // Store the external state in application state
+                applicationState.requests = serviceRequests
+            }
+        )
+    fetch(`${API}/plumbers`)
+        .then(response => response.json())
+        .then(
+            (plumbersAPI) => {
+                // Store the external state in application state
+                applicationState.plumbers = plumbersAPI
+            }
+        )
+    return fetch(`${API}/completions`)
+    .then(response => response.json())
+    .then(
+        (completionsAPI) => {
+            // Store the external state in application state
+            applicationState.completions = completionsAPI
+        }
+    )
 }
 
 export const sendRequest = (userServiceRequest) => {

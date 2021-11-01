@@ -1,17 +1,20 @@
 {
-  "plumbers": [],
-  "completions": [
+  "plumbers": [
     {
-      "requestId": 1,
-      "plumberId": 1,
-      "date_created": 1635178612268,
-      "id": 1
+      "id": 1,
+      "name": "Maude"
     },
     {
-      "requestId": 3,
-      "plumberId": 2,
-      "date_created": 1635178681254,
-      "id": 2
+      "id": 2,
+      "name": "Merle"
+    }
+  ],
+  "completions": [
+    {
+      "requestId": 2,
+      "plumberId": 1,
+      "date_created": 1635797861944,
+      "id": 1
     }
   ],
   "requests": [
@@ -20,7 +23,6 @@
       "address": "a",
       "budget": "1",
       "neededBy": "2021-10-15",
-      "completed": false,
       "id": 1
     },
     {
@@ -28,7 +30,6 @@
       "address": "a",
       "budget": "2",
       "neededBy": "2021-10-22",
-      "completed": false,
       "id": 2
     },
     {
@@ -36,7 +37,6 @@
       "address": "1",
       "budget": "1",
       "neededBy": "2021-10-12",
-      "completed": false,
       "id": 3
     }
   ]

@@ -1,9 +1,6 @@
 import { getRequests, sendCompletion, deleteRequest, getPlumbers, getCompletions, deleteCompletion } from "./dataAccess.js"
 
 const mainContainer = document.querySelector("#container")
-const plumbers = getPlumbers()
-
-
 
 mainContainer.addEventListener("click", click => {
     if (click.target.id.startsWith("request--")) {
@@ -15,9 +12,7 @@ mainContainer.addEventListener("click", click => {
     }
 })
 
-mainContainer.addEventListener(
-    "change",
-    (event) => {
+mainContainer.addEventListener("change", event => {
         if (event.target.id === "plumbers") {
             const requests = getRequests()
             const [requestId, plumberId] = event.target.value.split("--")
@@ -39,20 +34,27 @@ mainContainer.addEventListener(
             //change the boolean on request object to true
             const foundRequest = requests.find(request => request.id === parseInt(requestId))
             foundRequest.completed = true
+
+
         }
     }
 )
 
-
 const RequestListItem = (request) => {
     const completions = getCompletions()
-    if(completions.find(completion => completion.requestId === request.id)){
-        return
-    }
+    const plumbers = getPlumbers()
+    const isCompleted = completions.find(completion => completion.requestId ===request.id)
+    // if(completions.find(completion => completion.requestId === request.id)){
+    //     return
+    // }
     return `
-    <li id="request-${request.id}">
+    <li id="request-${request.id}" ${
+        isCompleted ? `class="completionList"`: `class="requestList"`
+    }>
         <div>${request.description}</div>
-        <select class="plumbers" id="plumbers">
+        ${
+            !isCompleted ?
+        `<select class="plumbers" id="plumbers">
         <option value="">Choose</option>
             ${
                 plumbers.map(
@@ -61,7 +63,9 @@ const RequestListItem = (request) => {
                     }
                 ).join("")
             }
-        </select>
+        </select>`
+        : ''
+        }
         <button class="request__delete"
                 id="request--${request.id}">
             Delete
@@ -71,43 +75,28 @@ const RequestListItem = (request) => {
 `
 }
 
-const CompletionListItem = (completion) => {
-    const requests = getRequests()
-    const foundRequest = requests.find(request => request.id === parseInt(completion.requestId))
-    //if statement prevents error when there are no completion objects yet.
-    if (!foundRequest) {
-        return
-    }
-    return `
-    <li>
-        <div>${foundRequest.description}</div>
-        <button class="completion__delete"
-                id="completion--${completion.id}">
-            Delete
-        </button>
-    </li>
-`
-}
 
 export const Requests = () => {
     const requests = getRequests()
+    const completions = getCompletions()
+    
+    
+    requests.sort((req1, req2) => {
+        const bool2 = completions.find(completion => completion.requestId === req2.id)
+        const bool1 = completions.find(completion => completion.requestId === req1.id)
+        
+        return (bool1 === bool2)
+        ? 0 : bool1
+        ? 1 : -1;
+
+    });
+    
+    debugger
+
     let html = `
-        <ul class="requestList">
+        <ul>
             ${
                 requests.map(RequestListItem).join("")
-            }
-        </ul>
-    `
-        
-    return html
-}
-
-export const Completions = () => {
-    const completions = getCompletions()
-    let html = `
-        <ul class="completionList">
-            ${
-                completions.map(CompletionListItem).join("")
             }
         </ul>
     `

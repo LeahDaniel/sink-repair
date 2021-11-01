@@ -4,45 +4,45 @@
     margin: 0;
 }
 
-.requestList li {
+.requestList{
     padding:10px;
     display: flex;
     flex-direction: row;
 }
 
-.requestList li:nth-child(2n){
+li:nth-child(2n).requestList{
     background-color:lightgray
 }
 
-.requestList li:nth-child(2n+1){
+li:nth-child(2n+1).requestList{
     background-color:white
 }
 
-.requestList li div {
+li div.requestList  {
     width: 60%;
 }
 
-.requestList li select {
+li select.requestList  {
     margin-left: 24px
 }
 
-.requestList li button {
+li button.requestList  {
     margin-left: 20%
 }
 
 
-.completionList li {
+.completionList {
     background-color: rgb(230, 171, 171);
     padding: 10px;
     display: flex;
     flex-direction: row;
 }
 
-.completionList li div {
+li.completionList div {
     width: 80%
 }
 
-.completionList li button {
+li.completionList button {
     margin-left: 102px
 }
 

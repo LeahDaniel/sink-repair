@@ -11,21 +11,18 @@ mainContainer.addEventListener("click", clickEvent => {
         const userDate = document.querySelector("input[name='serviceDate']").value
 
         // Make an object out of the user input
-        //? How is this creating an ID on the object? Is that part of the POST request?//
+        //! How is this creating an ID on the object? Is that part of the POST request?//
         const dataToSendToAPI = {
             description: userDescription,
             address: userAddress,
             budget: userBudget,
-            neededBy: userDate,
-            completed: false
+            neededBy: userDate
         }
 
         // Send the data to the API for permanent storage
         sendRequest(dataToSendToAPI)
     }
 })
-
-
 
 export const ServiceForm = () => {
     let html = `
