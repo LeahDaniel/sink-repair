@@ -4,22 +4,20 @@ const API = "http://localhost:8088"
 const applicationState = {
     requests: [],
     completions: [],
-    plumbers: [],
+    plumbers: []
 }
-
+//Copies of data
 export const getRequests = () => {
     return applicationState.requests.map(request => ({ ...request }))
 }
-
 export const getPlumbers = () => {
     return applicationState.plumbers.map(plumber => ({ ...plumber }))
 }
-
 export const getCompletions = () => {
     return applicationState.completions.map(job => ({ ...job }))
 }
 
-
+//Fetch
 export const fetchData = () => {
     fetch(`${API}/requests`)
         .then(response => response.json())
@@ -38,15 +36,15 @@ export const fetchData = () => {
             }
         )
     return fetch(`${API}/completions`)
-    .then(response => response.json())
-    .then(
-        (completionsAPI) => {
-            // Store the external state in application state
-            applicationState.completions = completionsAPI
-        }
-    )
+        .then(response => response.json())
+        .then(
+            (completionsAPI) => {
+                // Store the external state in application state
+                applicationState.completions = completionsAPI
+            }
+        )
 }
-
+//POST
 export const sendRequest = (userServiceRequest) => {
     const fetchOptions = {
         method: "POST",
@@ -65,7 +63,7 @@ export const sendRequest = (userServiceRequest) => {
         })
 
 }
-
+//POST
 export const sendCompletion = (completedRequest) => {
     const fetchOptions = {
         method: "POST",
@@ -84,20 +82,10 @@ export const sendCompletion = (completedRequest) => {
         })
 
 }
-
+//DELETE
 export const deleteRequest = (id) => {
     console.log(`Deleting request ${id}`)
     return fetch(`${API}/requests/${id}`, { method: "DELETE" })
-        .then(
-            () => {
-                mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-            }
-        )
-}
-
-export const deleteCompletion = (id) => {
-    console.log(`Deleting completion ${id}`)
-    return fetch(`${API}/completions/${id}`, { method: "DELETE" })
         .then(
             () => {
                 mainContainer.dispatchEvent(new CustomEvent("stateChanged"))

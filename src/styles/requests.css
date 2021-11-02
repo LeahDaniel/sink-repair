@@ -1,13 +1,15 @@
-.requestList, .completionList {
+ul{
     list-style-type: none;
     padding-inline-start: 0;
     margin: 0;
 }
 
 .requestList{
-    padding:10px;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 8px 0;
 }
 
 li:nth-child(2n).requestList{
@@ -18,47 +20,38 @@ li:nth-child(2n+1).requestList{
     background-color:white
 }
 
-li div.requestList  {
-    width: 60%;
-}
-
-li select.requestList  {
-    margin-left: 24px
-}
-
-li button.requestList  {
-    margin-left: 20%
-}
-
-
 .completionList {
     background-color: rgb(230, 171, 171);
-    padding: 10px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 0
 }
 
-li.completionList div {
-    width: 80%
+.completionList div {
+    margin-left: 13%
 }
 
-li.completionList button {
-    margin-left: 102px
+.completionList button {
+    margin-right: 13%
 }
 
 .tabletitles {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     background-color: darkgray;
     margin-bottom: 0;
     height: 47px;
+    width: 100%
 }
 
 #tabletitle-1 {
-    margin-left: 10px;
+    margin-left: 9%
 }
 
 #tabletitle-2 {
-    margin-left: 50%;
+    margin-right: 42%
 }

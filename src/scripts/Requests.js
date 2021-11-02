@@ -1,14 +1,11 @@
-import { getRequests, sendCompletion, deleteRequest, getPlumbers, getCompletions, deleteCompletion } from "./dataAccess.js"
+import { getRequests, sendCompletion, deleteRequest, getPlumbers, getCompletions } from "./dataAccess.js"
 
 const mainContainer = document.querySelector("#container")
 
 mainContainer.addEventListener("click", click => {
-    if (click.target.id.startsWith("request--")) {
+    if (click.target.id.startsWith("delete--")) {
         const [,requestId] = click.target.id.split("--")
         deleteRequest(parseInt(requestId))
-    } else if (click.target.id.startsWith("completion--")) {
-        const [,completionId] = click.target.id.split("--")
-        deleteCompletion(parseInt(completionId))
     }
 })
 
@@ -26,16 +23,6 @@ mainContainer.addEventListener("change", event => {
             }
             //Performs POST request
             sendCompletion(completion)
-
-            //removes the corresponding request list item from the html
-            const requestItemHTML = document.getElementById(`request-${parseInt(requestId)}`)
-            requestItemHTML.remove() 
-
-            //change the boolean on request object to true
-            const foundRequest = requests.find(request => request.id === parseInt(requestId))
-            foundRequest.completed = true
-
-
         }
     }
 )
@@ -44,16 +31,11 @@ const RequestListItem = (request) => {
     const completions = getCompletions()
     const plumbers = getPlumbers()
     const isCompleted = completions.find(completion => completion.requestId ===request.id)
-    // if(completions.find(completion => completion.requestId === request.id)){
-    //     return
-    // }
+
     return `
-    <li id="request-${request.id}" ${
-        isCompleted ? `class="completionList"`: `class="requestList"`
-    }>
+    <li id="request-${request.id}" ${isCompleted ? "class='completionList'": "class='requestList'"}>
         <div>${request.description}</div>
-        ${
-            !isCompleted ?
+        ${!isCompleted ?
         `<select class="plumbers" id="plumbers">
         <option value="">Choose</option>
             ${
@@ -64,10 +46,10 @@ const RequestListItem = (request) => {
                 ).join("")
             }
         </select>`
-        : ''
+        : ""
         }
-        <button class="request__delete"
-                id="request--${request.id}">
+        <button class="delete"
+                id="delete--${request.id}">
             Delete
         </button>
         
@@ -80,6 +62,9 @@ export const Requests = () => {
     const requests = getRequests()
     const completions = getCompletions()
     
+    //Sort the requests array based on the boolean values of the below find functions 
+    //(whether or not there is a completion with a matching requestID)
+    //This will put the completed ones at the bottom of the array and thus they will render at the end of the HTML list
     
     requests.sort((req1, req2) => {
         const bool2 = completions.find(completion => completion.requestId === req2.id)
@@ -91,7 +76,6 @@ export const Requests = () => {
 
     });
     
-    debugger
 
     let html = `
         <ul>

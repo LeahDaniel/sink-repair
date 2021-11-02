@@ -11,7 +11,6 @@ mainContainer.addEventListener("click", clickEvent => {
         const userDate = document.querySelector("input[name='serviceDate']").value
 
         // Make an object out of the user input
-        //! How is this creating an ID on the object? Is that part of the POST request?//
         const dataToSendToAPI = {
             description: userDescription,
             address: userAddress,
